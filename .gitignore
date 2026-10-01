@@ -1,0 +1,11 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# safety net for secrets anywhere in the repo
+.env
+.env*.local
+
+# if you later add a root package.json / workspaces
+node_modules/
