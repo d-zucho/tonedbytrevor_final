@@ -19,6 +19,12 @@ export const HOME_PAGE_QUERY = defineQuery(`
         listTitle,
         credentials,
         image{ alt, caption, asset }
+      },
+      _type == "firstWeeks" => {
+        eyebrow,
+        title,
+        introText,
+        steps[]{ _key, marker, title, description }
       }
     }
   }

@@ -6,3 +6,5 @@ type HomeSection = NonNullable<
 
 export type HeroData = Extract<HomeSection, { _type: 'hero' }>
 export type AboutData = Extract<HomeSection, { _type: 'about' }>
+export type FirstWeeksData = Extract<HomeSection, { _type: 'firstWeeks' }>
+

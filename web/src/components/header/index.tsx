@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { defineQuery } from 'next-sanity'
 import { sanityFetch } from '@/sanity/lib/live';
 import MaxWidthWrapper from '../MaxWidthWrapper';
-import { Button, buttonVariants } from '../ui/button';
+import { Button } from '../ui/button';
 import MobileNav from './MobileNav';
 import type { NAV_QUERY_RESULT } from '../../../sanity.types';
 
@@ -45,9 +45,11 @@ export async function Header() {
           </nav>
 
           {/* CONTACT BUTTON */}
-          <Button variant={'default'} className='px-8 hidden md:flex'>
-            <Link href={data?.contactButton?.href!} className='text-base font-medium'>{data?.contactButton?.label}</Link>
-          </Button>
+          {data?.contactButton?.href && (
+            <Button variant={'default'} className='px-8 hidden md:flex'>
+              <Link href={data.contactButton.href} className='text-base font-medium'>{data.contactButton.label}</Link>
+            </Button>
+          )}
 
           {/* MOBILE MENU TRIGGER */}
           <div className='md:hidden'>

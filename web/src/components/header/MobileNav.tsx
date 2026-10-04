@@ -45,9 +45,11 @@ const MobileNav = ( { data }: { data : NavData }) => {
         </div>
 
         <div className='mt-24 px-5'>
-          <Button variant={'default'} className='px-8 w-full hover:scale-102 transition-all duration-300'>
-            <Link href={data?.contactButton?.href!} className='text-base font-medium'>{data?.contactButton?.label}</Link>
-          </Button>
+          {data?.contactButton?.href && (
+            <Button variant={'default'} className='px-8 w-full hover:scale-102 transition-all duration-300'>
+              <Link href={data.contactButton.href} className='text-base font-medium'>{data.contactButton.label}</Link>
+            </Button>
+          )}
         </div>
 
         <div className='flex gap-3 items-center justify-center mt-12'>

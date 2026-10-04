@@ -8,7 +8,11 @@ export const homePage = defineType({
     defineField({
       name: 'sections',
       type: 'array',
-      of: [defineArrayMember({type: 'hero'}), defineArrayMember({type: 'about'})],
+      of: [
+        defineArrayMember({type: 'hero'}),
+        defineArrayMember({type: 'about'}),
+        defineArrayMember({type: 'firstWeeks'}),
+      ],
     }),
     defineField({
       name: 'seo',

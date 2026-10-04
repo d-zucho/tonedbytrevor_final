@@ -15,6 +15,19 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type FirstWeeks = {
+  _type: "firstWeeks";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  steps?: Array<{
+    marker?: string;
+    title?: string;
+    description?: string;
+    _key: string;
+  }>;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -129,6 +142,9 @@ export type HomePage = {
     | ({
         _key: string;
       } & About)
+    | ({
+        _key: string;
+      } & FirstWeeks)
   >;
   seo?: {
     title?: string;
@@ -240,6 +256,7 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | FirstWeeks
   | SanityImageAssetReference
   | About
   | Hero
@@ -285,7 +302,7 @@ export type NAV_QUERY_RESULT =
 
 // Source: ../web/src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0]{    sections[]{      _key,      _type,      _type == "hero" => {        eyebrow,        title,        introText,        ctas[]{ _key, label, href },        image{ alt, name, role, asset }      },      _type == "about" => {        eyebrow,        title,        body,        listTitle,        credentials,        image{ alt, caption, asset }      }    }  }
+// Query: *[_id == "homePage"][0]{    sections[]{      _key,      _type,      _type == "hero" => {        eyebrow,        title,        introText,        ctas[]{ _key, label, href },        image{ alt, name, role, asset }      },      _type == "about" => {        eyebrow,        title,        body,        listTitle,        credentials,        image{ alt, caption, asset }      },      _type == "firstWeeks" => {        eyebrow,        title,        introText,        steps[]{ _key, marker, title, description }      }    }  }
 export type HOME_PAGE_QUERY_RESULT =
   | {
       sections: null;
@@ -321,6 +338,19 @@ export type HOME_PAGE_QUERY_RESULT =
           }
         | {
             _key: string;
+            _type: "firstWeeks";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            steps: Array<{
+              _key: string;
+              marker: string | null;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
             _type: "hero";
             eyebrow: string | null;
             title: string | null;
@@ -345,7 +375,7 @@ export type HOME_PAGE_QUERY_RESULT =
 declare global {
   interface SanityQueries {
     '\n  *[_id == "siteSettings"][0]{\n    logo{ alt, "url": asset->url },\n    navLinks[]{ _key, label, href },\n    contactButton{ label, href }\n  }\n': NAV_QUERY_RESULT;
-    '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      },\n      _type == "firstWeeks" => {\n        eyebrow,\n        title,\n        introText,\n        steps[]{ _key, marker, title, description }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
