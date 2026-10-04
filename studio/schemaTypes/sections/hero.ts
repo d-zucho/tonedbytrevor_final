@@ -6,7 +6,13 @@ export const hero = defineType({
   type: 'object',
   fields: [
     defineField({name: 'eyebrow', type: 'string', validation: (r) => r.required()}),
-    defineField({name: 'title', type: 'string', validation: (r) => r.required()}),
+    defineField({
+      name: 'title',
+      type: 'text',
+      rows: 3,
+      description: 'Press Enter for each line. The first line is highlighted.',
+      validation: (r) => r.required(),
+    }),
     defineField({
       name: 'introText',
       type: 'text',
@@ -49,6 +55,10 @@ export const hero = defineType({
   ],
   preview: {
     select: {title: 'title', media: 'image'},
-    prepare: ({title, media}) => ({title: title || 'Untitled', subtitle: 'Hero', media}),
+    prepare: ({title, media}) => ({
+      title: title ? title.replace(/\s*\n\s*/g, ' ') : 'Untitled',
+      subtitle: 'Hero',
+      media,
+    }),
   },
 })

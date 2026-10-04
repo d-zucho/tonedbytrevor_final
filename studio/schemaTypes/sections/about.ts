@@ -37,8 +37,8 @@ export const about = defineType({
     }),
     defineField({name: 'listTitle', title: 'List subtitle', type: 'string'}),
     defineField({
-      name: 'certifications',
-      description: 'Add or remove as many as you need.',
+      name: 'credentials',
+      description: 'Certifications, accreditations or short stats. Add or remove as many as you need.',
       type: 'array',
       of: [defineArrayMember({type: 'string'})],
     }),

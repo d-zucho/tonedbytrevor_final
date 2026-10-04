@@ -4,6 +4,7 @@ import { sanityFetch } from '@/sanity/lib/live';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import { Button, buttonVariants } from '../ui/button';
 import MobileNav from './MobileNav';
+import type { NAV_QUERY_RESULT } from '../../../sanity.types';
 
 const NAV_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
@@ -13,14 +14,10 @@ const NAV_QUERY = defineQuery(`
   }
 `);
 
-export type NavData = {
-  logo: { alt: string | null; url: string | null } | null
-  navLinks: { _key: string; label: string; href: string }[] | null
-  contactButton: { label: string; href: string } | null
-} | null
+export type NavData = NAV_QUERY_RESULT
 
 export async function Header() {
-  const { data } = (await sanityFetch({ query: NAV_QUERY })) as { data: NavData }
+  const { data } = await sanityFetch({ query: NAV_QUERY })
 
   return (
     <header className='text-white h-20 z-10 relative bg-my-bg/40 backdrop-blur-2xl'>
@@ -35,7 +32,7 @@ export async function Header() {
 
           {/* NAV ITEMS */}
           <nav className="hidden md:flex items-center gap-5">
-            {data?.navLinks?.map((link) => (
+            {data?.navLinks?.map((link) => link.href && (
               <div key={link._key} className='w-fit relative group overflow-clip'>
                 <Link href={link.href}>{link.label}</Link>
                 <div

@@ -30,7 +30,7 @@ const MobileNav = ( { data }: { data : NavData }) => {
 
         {/* NAV LINKS */}
         <div className='flex flex-col gap-5 mt-12 px-5'>
-          {data?.navLinks?.map((link) => (
+          {data?.navLinks?.map((link) => link.href && (
             <SheetClose key={link._key}>
               <Link href={link.href} className={buttonVariants({
                 variant: 'ghost',

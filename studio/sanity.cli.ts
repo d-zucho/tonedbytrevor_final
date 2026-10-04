@@ -5,6 +5,17 @@ export default defineCliConfig({
     projectId: 'g6398rrc',
     dataset: 'production'
   },
+  // Types for the Next.js app in ../web, regenerated during `sanity dev` / `sanity build`
+  schemaExtraction: {
+    enabled: true,
+    path: 'schema.json',
+  },
+  typegen: {
+    enabled: true,
+    path: '../web/src/**/*.{ts,tsx}',
+    schema: 'schema.json',
+    generates: '../web/sanity.types.ts',
+  },
   deployment: {
     /**
      * Enable auto-updates for studios.
