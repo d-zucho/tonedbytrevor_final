@@ -33,9 +33,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${oswald.variable} ${archivo.variable} ${spaceMono.variable} antialiased bg-my-bg dark`}
+      className={`${oswald.variable} ${archivo.variable} ${spaceMono.variable} antialiased dark`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-my-bg">
         <Header />
         {children}
         <SanityLive />

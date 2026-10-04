@@ -34,6 +34,7 @@ export const siteSettings = defineType({
         defineField({name: 'href', type: 'string'}),
       ],
     }),
+    
   ],
   preview: {prepare: () => ({title: 'Site Settings'})},
 })

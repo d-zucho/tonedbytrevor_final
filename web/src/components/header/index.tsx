@@ -3,6 +3,7 @@ import { defineQuery } from 'next-sanity'
 import { sanityFetch } from '@/sanity/lib/live';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import { Button, buttonVariants } from '../ui/button';
+import MobileNav from './MobileNav';
 
 const NAV_QUERY = defineQuery(`
   *[_id == "siteSettings"][0]{
@@ -12,7 +13,7 @@ const NAV_QUERY = defineQuery(`
   }
 `);
 
-type NavData = {
+export type NavData = {
   logo: { alt: string | null; url: string | null } | null
   navLinks: { _key: string; label: string; href: string }[] | null
   contactButton: { label: string; href: string } | null
@@ -45,9 +46,16 @@ export async function Header() {
               </div>
             ))}
           </nav>
+
+          {/* CONTACT BUTTON */}
           <Button variant={'default'} className='px-8 hidden md:flex'>
             <Link href={data?.contactButton?.href!} className='text-base font-medium'>{data?.contactButton?.label}</Link>
           </Button>
+
+          {/* MOBILE MENU TRIGGER */}
+          <div className='md:hidden'>
+            <MobileNav data={data} />
+          </div>
         </div>
       </MaxWidthWrapper>
     </header>
