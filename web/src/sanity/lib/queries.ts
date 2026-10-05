@@ -95,3 +95,38 @@ export const ABOUT_PAGE_QUERY = defineQuery(`
     }
   }
 `)
+
+export const SERVICES_PAGE_QUERY = defineQuery(`
+  *[_id == "servicesPage"][0]{
+    sections[]{
+      _key,
+      _type,
+      _type == "servicesHero" => {
+        eyebrow,
+        title,
+        titleHighlight,
+        introText,
+        ctas[]{ _key, label, href },
+        "teaser": ^.sections[_type == "offerings"][0].offerings[].title
+      },
+      _type == "offerings" => {
+        eyebrow,
+        title,
+        introText,
+        offerings[]{ _key, tag, title, description, features }
+      },
+      _type == "included" => {
+        eyebrow,
+        title,
+        introText,
+        items
+      },
+      _type == "contact" => {
+        eyebrow,
+        title,
+        introText,
+        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }
+      }
+    }
+  }
+`)

@@ -1,88 +1,81 @@
-import { TContactInfo, TCredential, TPrinciple } from '@/lib/types';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { TService } from '@/lib/types'
 
-export const CONTACT_INFO: TContactInfo[] = [
+export const V2_SERVICES: TService[] = [
   {
-    icon: Mail,
-    label: 'Email Me',
-    text: 'trevor1234@gmail.com',
+    tag: 'One-on-one',
+    title: 'Personal Training',
+    description:
+      'Just you and me. Every session, plan, and check-in is built around your body, your goals, and the week you are actually having.',
+    features: [
+      'Sessions shaped to your level',
+      'A plan that adjusts every week',
+      'Form first, weight later',
+    ],
   },
   {
-    icon: Phone,
-    label: 'Call for Support',
-    text: '+1 (999) 123-4567',
+    tag: 'Balance',
+    title: 'Recovery & Mindset',
+    description:
+      'Training is only half of it. We work on the sleep, stress, and habits that decide whether any of the rest actually sticks.',
+    features: [
+      'Sleep and stress routines',
+      'Simple recovery protocols',
+      'Habits that survive a real week',
+    ],
   },
   {
-    icon: MapPin,
-    label: 'Location',
-    text: 'Orange County, CA (and Worldwide Online)',
+    tag: 'Together',
+    title: 'Small-Group Sessions',
+    description:
+      'Train alongside a few others at your level. The accountability of a group, without ever feeling lost in a crowd.',
+    features: [
+      'Small, level-matched groups',
+      'Still real personal attention',
+      'A room that is actually welcoming',
+    ],
   },
 ]
 
-export const CREDENTIALS_INFO: TCredential[] = [
+export const PILLARS = [
   {
-    title: 'NASM',
-    description: 'Pes specialist',
-    image: '/icons/nasm-icon.svg',
+    title: 'Elite Personal Training',
+    description:
+      'Precision-engineered 1-on-1 coaching. Every rep, every set, and every recovery period is optimized for your specific biomechanics and goals.',
+    facts: [
+      '1-on-1 focused sessions',
+      'Biometric Assessment',
+      'Form Correction & Safety',
+    ],
+    link: 'Explore Training',
   },
   {
-    title: 'AFAA',
-    description: 'Certified Trainer',
-    image: '/icons/afaa-icon.svg',
+    title: 'Mindfulness & Recovery',
+    description:
+      'Balancing the body and mind. Integrating techniques for stress relief, sleep optimization, and recovery strategies to boost perfiormance and overall well-being.',
+    facts: [
+      'Guided Meditations',
+      'Sleep Hygiene Practices',
+      'Recovery Protocols',
+    ],
+    link: 'Discover Mindfulness',
   },
   {
-    title: 'CCS',
-    description: 'Certified Corrective Specialist',
-    image: '/icons/ccs-icon.svg',
+    title: 'Group Fitness Sessions',
+    description:
+      'Join a community while getting fit and healthy. Our high-energy classes are designed to make fitness fun and accessible for everyone, regardless of experience level.',
+    facts: [
+      'Variety of classes',
+      'Motivational Atmosphere',
+      'Dynamic Workouts',
+    ],
+    link: 'Join a class',
   },
 ]
 
-export const ABOUT_PRINCIPLES: TPrinciple[] = [
-  {
-    label: 'Form',
-    title: 'Form before weight',
-    description:
-      'We earn every load. If a movement is not clean, we do not add to it. Progress you cannot control is not progress.',
-  },
-  {
-    label: 'Bespoke',
-    title: 'Your plan, not a template',
-    description:
-      'No two bodies, schedules, or histories are the same, so no two programs I write are either. Yours is built around your life.',
-  },
-  {
-    label: 'Consistency',
-    title: 'Consistency over intensity',
-    description:
-      'The best session is the one you will come back to on Thursday. We build habits that survive a bad week, not just a good one.',
-  },
-  {
-    label: 'Honesty',
-    title: 'Honest coaching, always',
-    description:
-      'I will tell you what is working and what is not. You will always know why we are doing what we are doing.',
-  },
-]
 
-export const MY_METHODS = [
-  {
-    title: 'Kinetic Assessment',
-    description:
-      'We start with a deep-dive analysis of your biomechanics to identify imbalances before we ever touch a weight.',
-  },
-  {
-    title: 'Hyper-Periodization',
-    description:
-      'Custom programming that evolves weekly progress, ensuring you never plateau and always keep the body guessing.',
-  },
-  {
-    title: 'Metabolic Mastery',
-    description:
-      "Nutrition isn't a diet; it's fuel. We optimize your macros to match your trainingintensity and recovery needs.",
-  },
-  {
-    title: 'Strength Synergy',
-    description:
-      'Combining strength training and functional movements for a comprehensive approach to power and endurance.',
-  },
+export const V2_SERVICE_INCLUDES: string[] = [
+  'A plan made for you, not a template',
+  'Weekly check-ins so you are never guessing',
+  'Message access between sessions',
+  'Honest coaching, and no upsells',
 ]

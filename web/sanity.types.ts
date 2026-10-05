@@ -35,6 +35,41 @@ export type Icon = {
   _type: "image";
 };
 
+export type Included = {
+  _type: "included";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  items?: Array<string>;
+};
+
+export type Offerings = {
+  _type: "offerings";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  offerings?: Array<{
+    tag?: string;
+    title?: string;
+    description?: string;
+    features?: Array<string>;
+    _key: string;
+  }>;
+};
+
+export type ServicesHero = {
+  _type: "servicesHero";
+  eyebrow?: string;
+  title?: string;
+  titleHighlight?: string;
+  introText?: string;
+  ctas?: Array<{
+    label?: string;
+    href?: string;
+    _key: string;
+  }>;
+};
+
 export type Credentials = {
   _type: "credentials";
   eyebrow?: string;
@@ -247,6 +282,32 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type ServicesPage = {
+  _id: string;
+  _type: "servicesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sections?: Array<
+    | ({
+        _key: string;
+      } & ServicesHero)
+    | ({
+        _key: string;
+      } & Offerings)
+    | ({
+        _key: string;
+      } & Included)
+    | ({
+        _key: string;
+      } & Contact)
+  >;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
+};
+
 export type AboutPage = {
   _id: string;
   _type: "aboutPage";
@@ -418,6 +479,9 @@ export type AllSanitySchemaTypes =
   | Cta
   | SanityImageAssetReference
   | Icon
+  | Included
+  | Offerings
+  | ServicesHero
   | Credentials
   | Principles
   | MyStory
@@ -431,6 +495,7 @@ export type AllSanitySchemaTypes =
   | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
+  | ServicesPage
   | AboutPage
   | HomePage
   | SanityImagePaletteSwatch
@@ -623,6 +688,36 @@ export type HOME_PAGE_QUERY_RESULT =
           }
       > | null;
     }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "included";
+          }
+        | {
+            _key: string;
+            _type: "offerings";
+          }
+        | {
+            _key: string;
+            _type: "servicesHero";
+          }
+      > | null;
+    }
   | null;
 
 // Source: ../web/src/sanity/lib/queries.ts
@@ -773,6 +868,175 @@ export type ABOUT_PAGE_QUERY_RESULT =
           }
       > | null;
     }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "included";
+          }
+        | {
+            _key: string;
+            _type: "offerings";
+          }
+        | {
+            _key: string;
+            _type: "servicesHero";
+          }
+      > | null;
+    }
+  | null;
+
+// Source: ../web/src/sanity/lib/queries.ts
+// Variable: SERVICES_PAGE_QUERY
+// Query: *[_id == "servicesPage"][0]{    sections[]{      _key,      _type,      _type == "servicesHero" => {        eyebrow,        title,        titleHighlight,        introText,        ctas[]{ _key, label, href },        "teaser": ^.sections[_type == "offerings"][0].offerings[].title      },      _type == "offerings" => {        eyebrow,        title,        introText,        offerings[]{ _key, tag, title, description, features }      },      _type == "included" => {        eyebrow,        title,        introText,        items      },      _type == "contact" => {        eyebrow,        title,        introText,        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }      }    }  }
+export type SERVICES_PAGE_QUERY_RESULT =
+  | {
+      sections: null;
+    }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "about";
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "firstWeeks";
+          }
+        | {
+            _key: string;
+            _type: "hero";
+          }
+        | {
+            _key: string;
+            _type: "method";
+          }
+        | {
+            _key: string;
+            _type: "proof";
+          }
+      > | null;
+    }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "aboutHero";
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "credentials";
+          }
+        | {
+            _key: string;
+            _type: "method";
+          }
+        | {
+            _key: string;
+            _type: "myStory";
+          }
+        | {
+            _key: string;
+            _type: "principles";
+          }
+      > | null;
+    }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "included";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            items: Array<string> | null;
+          }
+        | {
+            _key: string;
+            _type: "offerings";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            offerings: Array<{
+              _key: string;
+              tag: string | null;
+              title: string | null;
+              description: string | null;
+              features: Array<string> | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "servicesHero";
+            eyebrow: string | null;
+            title: string | null;
+            titleHighlight: string | null;
+            introText: string | null;
+            ctas: Array<{
+              _key: string;
+              label: string | null;
+              href: string | null;
+            }> | null;
+            teaser: Array<string | null> | null;
+          }
+      > | null;
+    }
   | null;
 
 // Query TypeMap
@@ -781,6 +1045,7 @@ declare global {
     '\n  *[_id == "siteSettings"][0]{\n    logo{ alt, "url": asset->url },\n    navLinks[]{ _key, label, href },\n    contactButton{ label, href }\n  }\n': NAV_QUERY_RESULT;
     '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      },\n      _type == "firstWeeks" => {\n        eyebrow,\n        title,\n        introText,\n        steps[]{ _key, marker, title, description }\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "proof" => {\n        eyebrow,\n        title,\n        introText,\n        testimonials[]{ _key, name, quote, label }\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_id == "aboutPage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "aboutHero" => {\n        eyebrow,\n        title,\n        titleHighlight,\n        introText,\n        cta{ label, href },\n        image{ alt, name, detail, asset }\n      },\n      _type == "myStory" => {\n        eyebrow,\n        title,\n        body,\n        quote,\n        quoteLabel\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "principles" => {\n        eyebrow,\n        title,\n        introText,\n        principles[]{ _key, label, title, description }\n      },\n      _type == "credentials" => {\n        eyebrow,\n        title,\n        introText,\n        credentials[]{ _key, title, description }\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
+    '\n  *[_id == "servicesPage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "servicesHero" => {\n        eyebrow,\n        title,\n        titleHighlight,\n        introText,\n        ctas[]{ _key, label, href },\n        "teaser": ^.sections[_type == "offerings"][0].offerings[].title\n      },\n      _type == "offerings" => {\n        eyebrow,\n        title,\n        introText,\n        offerings[]{ _key, tag, title, description, features }\n      },\n      _type == "included" => {\n        eyebrow,\n        title,\n        introText,\n        items\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': SERVICES_PAGE_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
