@@ -11,3 +11,15 @@ export type TContactInfo = {
   text: string
   label?: string
 }
+
+export type TCredential = {
+  title: string
+  description: string
+  image: string
+}
+
+export type TPrinciple = {
+  label: string // short mono tag
+  title: string
+  description: string
+}

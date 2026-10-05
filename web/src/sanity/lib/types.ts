@@ -1,4 +1,7 @@
-import type { HOME_PAGE_QUERY_RESULT } from '../../../sanity.types'
+import type {
+  ABOUT_PAGE_QUERY_RESULT,
+  HOME_PAGE_QUERY_RESULT,
+} from '../../../sanity.types'
 
 type HomeSection = NonNullable<
   NonNullable<HOME_PAGE_QUERY_RESULT>['sections']
@@ -11,3 +14,11 @@ export type MethodData = Extract<HomeSection, { _type: 'method' }>
 export type ProofData = Extract<HomeSection, { _type: 'proof' }>
 export type ContactData = Extract<HomeSection, { _type: 'contact' }>
 
+type AboutPageSection = NonNullable<
+  NonNullable<ABOUT_PAGE_QUERY_RESULT>['sections']
+>[number]
+
+export type AboutHeroData = Extract<AboutPageSection, { _type: 'aboutHero' }>
+export type MyStoryData = Extract<AboutPageSection, { _type: 'myStory' }>
+export type PrinciplesData = Extract<AboutPageSection, { _type: 'principles' }>
+export type CredentialsData = Extract<AboutPageSection, { _type: 'credentials' }>

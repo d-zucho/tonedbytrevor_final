@@ -7,3 +7,5 @@ BEFORE DEPLOYMENT
 
 - [ ] Add your live site URL to Sanity's CORS origins if you hit a CORS error on the deployed site. 
       Your sanityFetch runs on the server so you may not need it. 
+- [ ] Set the three RESEND variables (plus the two Sanity ones) in hosting provider's environment
+      settings.

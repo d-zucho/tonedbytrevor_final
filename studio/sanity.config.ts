@@ -5,6 +5,7 @@ import {schemaTypes} from './schemaTypes'
 
 const singletons = [
   {type: 'homePage', title: 'Home Page'},
+  {type: 'aboutPage', title: 'About Page'},
   {type: 'siteSettings', title: 'Site Settings'},
 ]
 const singletonTypes = new Set(singletons.map((s) => s.type))

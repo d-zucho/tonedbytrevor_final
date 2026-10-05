@@ -15,6 +15,11 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type Cta = {
+  label?: string;
+  href?: string;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -24,10 +29,76 @@ export type SanityImageAssetReference = {
 
 export type Icon = {
   asset?: SanityImageAssetReference;
-  media?: unknown; // Unable to locate the referenced type "icon.media" in schema
+  media?: unknown; // Unable to locate the referenced type "media" in schema
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   _type: "image";
+};
+
+export type Credentials = {
+  _type: "credentials";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  credentials?: Array<{
+    title?: string;
+    description?: string;
+    _key: string;
+  }>;
+};
+
+export type Principles = {
+  _type: "principles";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  principles?: Array<{
+    label?: string;
+    title?: string;
+    description?: string;
+    _key: string;
+  }>;
+};
+
+export type MyStory = {
+  _type: "myStory";
+  eyebrow?: string;
+  title?: string;
+  body?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: null;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  quote?: string;
+  quoteLabel?: string;
+};
+
+export type AboutHero = {
+  _type: "aboutHero";
+  eyebrow?: string;
+  title?: string;
+  titleHighlight?: string;
+  introText?: string;
+  cta?: Cta;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    name?: string;
+    detail?: string;
+    _type: "image";
+  };
 };
 
 export type Contact = {
@@ -176,6 +247,38 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type AboutPage = {
+  _id: string;
+  _type: "aboutPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  sections?: Array<
+    | ({
+        _key: string;
+      } & AboutHero)
+    | ({
+        _key: string;
+      } & MyStory)
+    | ({
+        _key: string;
+      } & Method)
+    | ({
+        _key: string;
+      } & Principles)
+    | ({
+        _key: string;
+      } & Credentials)
+    | ({
+        _key: string;
+      } & Contact)
+  >;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
+};
+
 export type HomePage = {
   _id: string;
   _type: "homePage";
@@ -312,8 +415,13 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | Cta
   | SanityImageAssetReference
   | Icon
+  | Credentials
+  | Principles
+  | MyStory
+  | AboutHero
   | Contact
   | Proof
   | Method
@@ -323,6 +431,7 @@ export type AllSanitySchemaTypes =
   | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
+  | AboutPage
   | HomePage
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -468,6 +577,202 @@ export type HOME_PAGE_QUERY_RESULT =
           }
       > | null;
     }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "aboutHero";
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "credentials";
+          }
+        | {
+            _key: string;
+            _type: "method";
+            eyebrow: string | null;
+            title: string | null;
+            sideNote: string | null;
+            methods: Array<{
+              _key: string;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "myStory";
+          }
+        | {
+            _key: string;
+            _type: "principles";
+          }
+      > | null;
+    }
+  | null;
+
+// Source: ../web/src/sanity/lib/queries.ts
+// Variable: ABOUT_PAGE_QUERY
+// Query: *[_id == "aboutPage"][0]{    sections[]{      _key,      _type,      _type == "aboutHero" => {        eyebrow,        title,        titleHighlight,        introText,        cta{ label, href },        image{ alt, name, detail, asset }      },      _type == "myStory" => {        eyebrow,        title,        body,        quote,        quoteLabel      },      _type == "method" => {        eyebrow,        title,        sideNote,        methods[]{ _key, title, description }      },      _type == "principles" => {        eyebrow,        title,        introText,        principles[]{ _key, label, title, description }      },      _type == "credentials" => {        eyebrow,        title,        introText,        credentials[]{ _key, title, description }      },      _type == "contact" => {        eyebrow,        title,        introText,        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }      }    }  }
+export type ABOUT_PAGE_QUERY_RESULT =
+  | {
+      sections: null;
+    }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "about";
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "firstWeeks";
+          }
+        | {
+            _key: string;
+            _type: "hero";
+          }
+        | {
+            _key: string;
+            _type: "method";
+            eyebrow: string | null;
+            title: string | null;
+            sideNote: string | null;
+            methods: Array<{
+              _key: string;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "proof";
+          }
+      > | null;
+    }
+  | {
+      sections: Array<
+        | {
+            _key: string;
+            _type: "aboutHero";
+            eyebrow: string | null;
+            title: string | null;
+            titleHighlight: string | null;
+            introText: string | null;
+            cta: {
+              label: string | null;
+              href: string | null;
+            } | null;
+            image: {
+              alt: string | null;
+              name: string | null;
+              detail: string | null;
+              asset: SanityImageAssetReference | null;
+            } | null;
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "credentials";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            credentials: Array<{
+              _key: string;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "method";
+            eyebrow: string | null;
+            title: string | null;
+            sideNote: string | null;
+            methods: Array<{
+              _key: string;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+        | {
+            _key: string;
+            _type: "myStory";
+            eyebrow: string | null;
+            title: string | null;
+            body: Array<{
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "normal";
+              listItem?: never;
+              markDefs?: null;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }> | null;
+            quote: string | null;
+            quoteLabel: string | null;
+          }
+        | {
+            _key: string;
+            _type: "principles";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            principles: Array<{
+              _key: string;
+              label: string | null;
+              title: string | null;
+              description: string | null;
+            }> | null;
+          }
+      > | null;
+    }
   | null;
 
 // Query TypeMap
@@ -475,6 +780,7 @@ declare global {
   interface SanityQueries {
     '\n  *[_id == "siteSettings"][0]{\n    logo{ alt, "url": asset->url },\n    navLinks[]{ _key, label, href },\n    contactButton{ label, href }\n  }\n': NAV_QUERY_RESULT;
     '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      },\n      _type == "firstWeeks" => {\n        eyebrow,\n        title,\n        introText,\n        steps[]{ _key, marker, title, description }\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "proof" => {\n        eyebrow,\n        title,\n        introText,\n        testimonials[]{ _key, name, quote, label }\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_id == "aboutPage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "aboutHero" => {\n        eyebrow,\n        title,\n        titleHighlight,\n        introText,\n        cta{ label, href },\n        image{ alt, name, detail, asset }\n      },\n      _type == "myStory" => {\n        eyebrow,\n        title,\n        body,\n        quote,\n        quoteLabel\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "principles" => {\n        eyebrow,\n        title,\n        introText,\n        principles[]{ _key, label, title, description }\n      },\n      _type == "credentials" => {\n        eyebrow,\n        title,\n        introText,\n        credentials[]{ _key, title, description }\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': ABOUT_PAGE_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
