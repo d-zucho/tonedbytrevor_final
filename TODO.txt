@@ -1,0 +1,9 @@
+BEFORE DEPLOYMENT
+----------------------
+
+- [ ] Set the three Resend variables in your host's environment settings, along with the two Sanity ones.
+
+- [ ] Verify a domain in Resend and change CONTACT_FROM_EMAIL, so messages can be sent to trevor
+
+- [ ] Add your live site URL to Sanity's CORS origins if you hit a CORS error on the deployed site. 
+      Your sanityFetch runs on the server so you may not need it. 

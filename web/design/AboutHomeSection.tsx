@@ -25,7 +25,7 @@ const MeetTrevor = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className='relative order-last aspect-[4/3] overflow-hidden rounded-md lg:order-first'
+            className='relative order-last aspect-4/3 overflow-hidden rounded-md lg:order-first'
           >
             <Image
               src='/v2-floor-stretch.webp'
@@ -44,7 +44,7 @@ const MeetTrevor = () => {
             {/* Gradient only where the caption sits, for legibility */}
             <div
               aria-hidden
-              className='absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 to-transparent'
+              className='absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black/55 to-transparent'
             />
             <span className='absolute bottom-3 left-4 font-space-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/90'>
               In session
@@ -84,7 +84,7 @@ const MeetTrevor = () => {
               <p className='font-space-mono text-[0.7rem] uppercase tracking-[0.22em] text-my-primary'>
                 Certified &amp; accredited
               </p>
-              <ul className='mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-space-mono text-sm font-bold uppercase tracking-[0.1em] text-v2-paper-ink'>
+              <ul className='mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 font-space-mono text-sm font-bold uppercase tracking-widest text-v2-paper-ink'>
                 {CREDENTIALS.map((item, i) => (
                   <li key={item} className='flex items-center gap-3'>
                     {i > 0 && (
