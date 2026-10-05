@@ -2,6 +2,7 @@ import FirstWeeks from '@/components/sections/home/FirstWeeks'
 import HomeAbout from '@/components/sections/home/HomeAbout'
 import Hero from '@/components/sections/home/Hero'
 import Method from '@/components/sections/home/Method'
+import Proof from '@/components/sections/home/Proof'
 import { sanityFetch } from '@/sanity/lib/live'
 import { HOME_PAGE_QUERY } from '@/sanity/lib/queries'
 
@@ -20,6 +21,8 @@ export default async function Home() {
             return <FirstWeeks key={section._key} data={section} />
           case 'method':
             return <Method key={section._key} data={section} />
+          case 'proof':
+            return <Proof key={section._key} data={section} />
           default:
             return null
         }

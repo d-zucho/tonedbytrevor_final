@@ -31,6 +31,12 @@ export const HOME_PAGE_QUERY = defineQuery(`
         title,
         sideNote,
         methods[]{ _key, title, description }
+      },
+      _type == "proof" => {
+        eyebrow,
+        title,
+        introText,
+        testimonials[]{ _key, name, quote, label }
       }
     }
   }

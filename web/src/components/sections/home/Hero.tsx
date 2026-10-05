@@ -140,7 +140,7 @@ const Hero = ({ data }: { data: HeroData }) => {
               transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className='relative mx-auto w-full max-w-sm lg:max-w-none'
             >
-              <div className='relative aspect-[4/5] overflow-hidden rounded-md bg-v2-surface'>
+              <div className='relative aspect-4/5 overflow-hidden rounded-md bg-v2-surface'>
                 <Image
                   src={urlFor(image).width(1000).auto('format').url()}
                   alt={image.alt ?? ''}

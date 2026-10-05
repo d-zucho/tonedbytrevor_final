@@ -13,6 +13,7 @@ export const homePage = defineType({
         defineArrayMember({type: 'about'}),
         defineArrayMember({type: 'firstWeeks'}),
         defineArrayMember({type: 'method'}),
+        defineArrayMember({type: 'proof'}),
       ],
     }),
     defineField({

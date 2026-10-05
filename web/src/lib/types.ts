@@ -4,3 +4,4 @@ export type TFirstWeek = {
   title: string
   description: string
 }
+
