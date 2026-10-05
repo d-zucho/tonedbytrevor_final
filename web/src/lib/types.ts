@@ -1,3 +1,4 @@
+import { LucideIcon } from 'lucide-react'
 
 export type TFirstWeek = {
   marker: string // logbook notation, e.g. "WK 01"
@@ -5,3 +6,8 @@ export type TFirstWeek = {
   description: string
 }
 
+export type TContactInfo = {
+  icon: LucideIcon
+  text: string
+  label?: string
+}

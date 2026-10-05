@@ -1,3 +1,4 @@
+import Contact from '@/components/sections/home/Contact'
 import FirstWeeks from '@/components/sections/home/FirstWeeks'
 import HomeAbout from '@/components/sections/home/HomeAbout'
 import Hero from '@/components/sections/home/Hero'
@@ -23,6 +24,8 @@ export default async function Home() {
             return <Method key={section._key} data={section} />
           case 'proof':
             return <Proof key={section._key} data={section} />
+          case 'contact':
+            return <Contact key={section._key} data={section} />
           default:
             return null
         }

@@ -15,6 +15,35 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Icon = {
+  asset?: SanityImageAssetReference;
+  media?: unknown; // Unable to locate the referenced type "icon.media" in schema
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  _type: "image";
+};
+
+export type Contact = {
+  _type: "contact";
+  eyebrow?: string;
+  title?: string;
+  introText?: string;
+  details?: Array<{
+    icon?: Icon;
+    label?: string;
+    text?: string;
+    href?: string;
+    _key: string;
+  }>;
+};
+
 export type Proof = {
   _type: "proof";
   eyebrow?: string;
@@ -51,13 +80,6 @@ export type FirstWeeks = {
     description?: string;
     _key: string;
   }>;
-};
-
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
 export type About = {
@@ -176,6 +198,9 @@ export type HomePage = {
     | ({
         _key: string;
       } & Proof)
+    | ({
+        _key: string;
+      } & Contact)
   >;
   seo?: {
     title?: string;
@@ -287,10 +312,12 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | SanityImageAssetReference
+  | Icon
+  | Contact
   | Proof
   | Method
   | FirstWeeks
-  | SanityImageAssetReference
   | About
   | Hero
   | SiteSettings
@@ -335,7 +362,7 @@ export type NAV_QUERY_RESULT =
 
 // Source: ../web/src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0]{    sections[]{      _key,      _type,      _type == "hero" => {        eyebrow,        title,        introText,        ctas[]{ _key, label, href },        image{ alt, name, role, asset }      },      _type == "about" => {        eyebrow,        title,        body,        listTitle,        credentials,        image{ alt, caption, asset }      },      _type == "firstWeeks" => {        eyebrow,        title,        introText,        steps[]{ _key, marker, title, description }      },      _type == "method" => {        eyebrow,        title,        sideNote,        methods[]{ _key, title, description }      },      _type == "proof" => {        eyebrow,        title,        introText,        testimonials[]{ _key, name, quote, label }      }    }  }
+// Query: *[_id == "homePage"][0]{    sections[]{      _key,      _type,      _type == "hero" => {        eyebrow,        title,        introText,        ctas[]{ _key, label, href },        image{ alt, name, role, asset }      },      _type == "about" => {        eyebrow,        title,        body,        listTitle,        credentials,        image{ alt, caption, asset }      },      _type == "firstWeeks" => {        eyebrow,        title,        introText,        steps[]{ _key, marker, title, description }      },      _type == "method" => {        eyebrow,        title,        sideNote,        methods[]{ _key, title, description }      },      _type == "proof" => {        eyebrow,        title,        introText,        testimonials[]{ _key, name, quote, label }      },      _type == "contact" => {        eyebrow,        title,        introText,        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }      }    }  }
 export type HOME_PAGE_QUERY_RESULT =
   | {
       sections: null;
@@ -368,6 +395,20 @@ export type HOME_PAGE_QUERY_RESULT =
               caption: string | null;
               asset: SanityImageAssetReference | null;
             } | null;
+          }
+        | {
+            _key: string;
+            _type: "contact";
+            eyebrow: string | null;
+            title: string | null;
+            introText: string | null;
+            details: Array<{
+              _key: string;
+              label: string | null;
+              text: string | null;
+              href: string | null;
+              iconUrl: string | null;
+            }> | null;
           }
         | {
             _key: string;
@@ -433,7 +474,7 @@ export type HOME_PAGE_QUERY_RESULT =
 declare global {
   interface SanityQueries {
     '\n  *[_id == "siteSettings"][0]{\n    logo{ alt, "url": asset->url },\n    navLinks[]{ _key, label, href },\n    contactButton{ label, href }\n  }\n': NAV_QUERY_RESULT;
-    '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      },\n      _type == "firstWeeks" => {\n        eyebrow,\n        title,\n        introText,\n        steps[]{ _key, marker, title, description }\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "proof" => {\n        eyebrow,\n        title,\n        introText,\n        testimonials[]{ _key, name, quote, label }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_id == "homePage"][0]{\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow,\n        title,\n        introText,\n        ctas[]{ _key, label, href },\n        image{ alt, name, role, asset }\n      },\n      _type == "about" => {\n        eyebrow,\n        title,\n        body,\n        listTitle,\n        credentials,\n        image{ alt, caption, asset }\n      },\n      _type == "firstWeeks" => {\n        eyebrow,\n        title,\n        introText,\n        steps[]{ _key, marker, title, description }\n      },\n      _type == "method" => {\n        eyebrow,\n        title,\n        sideNote,\n        methods[]{ _key, title, description }\n      },\n      _type == "proof" => {\n        eyebrow,\n        title,\n        introText,\n        testimonials[]{ _key, name, quote, label }\n      },\n      _type == "contact" => {\n        eyebrow,\n        title,\n        introText,\n        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }\n      }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

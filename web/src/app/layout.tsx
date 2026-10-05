@@ -3,6 +3,7 @@ import { Oswald, Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { Header } from '@/components/header';
+import { Toaster } from '@/components/ui/toast';
 
 const oswald = Oswald({
   variable: '--font-oswald',
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-my-bg">
         <Header />
         {children}
+        <Toaster />
         <SanityLive />
       </body>
     </html>

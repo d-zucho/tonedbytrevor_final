@@ -37,6 +37,12 @@ export const HOME_PAGE_QUERY = defineQuery(`
         title,
         introText,
         testimonials[]{ _key, name, quote, label }
+      },
+      _type == "contact" => {
+        eyebrow,
+        title,
+        introText,
+        details[]{ _key, label, text, href, "iconUrl": icon.asset->url }
       }
     }
   }
