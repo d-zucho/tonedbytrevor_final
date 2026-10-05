@@ -25,6 +25,12 @@ export const HOME_PAGE_QUERY = defineQuery(`
         title,
         introText,
         steps[]{ _key, marker, title, description }
+      },
+      _type == "method" => {
+        eyebrow,
+        title,
+        sideNote,
+        methods[]{ _key, title, description }
       }
     }
   }
