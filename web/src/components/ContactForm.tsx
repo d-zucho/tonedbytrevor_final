@@ -24,6 +24,8 @@ import { contactSchema, type ContactValues } from '@/lib/ContactSchema'
 import { sendContactMessage } from '@/app/actions/contact'
 import { toast } from './ui/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Spinner } from './ui/spinner'
+import { ArrowRightIcon } from 'lucide-react'
 
 
 const ContactForm = () => {
@@ -192,7 +194,13 @@ const ContactForm = () => {
               className='px-10 max-sm:w-full'
               disabled={loading}
             >
-              {loading ? 'Sending...' : 'Submit'}
+              {loading ? 
+              <>
+                <Spinner className='size-4' /> Sending...
+              </> : <>
+                Submit
+                <ArrowRightIcon className='size-4' />
+              </>}
             </Button>
           </form>
         
